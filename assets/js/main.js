@@ -468,18 +468,27 @@
         }, ok?6000:10000);
     }
 
-    function showFormError() {
-        showToast(false, 'Enquiry not sent',
-            'Sorry, we couldn’t send your enquiry. Please call <a href="tel:07539995333">07539 995333</a> or message us on <a href="https://wa.me/'+mcData.whatsapp+'" target="_blank" rel="noopener noreferrer">WhatsApp</a>.');
+    var FORM_TIMEOUT_MS = 20000;
+    var CONTACT_FALLBACK = 'Please call <a href="tel:07539995333">07539 995333</a> or message us on <a href="https://wa.me/447539995333" target="_blank" rel="noopener noreferrer">WhatsApp</a>.';
+
+    function showFormError(timedOut) {
+        // A timed-out request may still have been delivered, so don't tell the visitor it definitely failed.
+        showToast(false, timedOut ? 'No confirmation received' : 'Enquiry not sent',
+            (timedOut
+                ? 'We couldn’t confirm your enquiry was received. Your details are still in the form. '
+                : 'Sorry, we couldn’t send your enquiry. Your details are still in the form. ')
+            + CONTACT_FALLBACK);
     }
 
     window.mcFormSubmit = function(e, title) {
         e.preventDefault();
         var form=e.target;
+        if (form.dataset.sending) return;
         var button=form.querySelector('[type="submit"]');
 
         if (!mcData.formKey || mcData.formKey.indexOf('YOUR_')===0) {
-            showFormError();
+            if (window.console) console.warn('Metrocart: Web3Forms access key is not configured in index.html (mcFormKey).');
+            showFormError(false);
             return;
         }
 
@@ -489,16 +498,28 @@
         data.append('from_name', 'Metrocart website');
 
         var buttonText=button.innerHTML;
+        form.dataset.sending='1';
+        form.setAttribute('aria-busy','true');
         button.disabled=true;
         button.innerHTML='Sending…';
 
-        fetch(FORM_ENDPOINT, { method:'POST', body:data, headers:{ Accept:'application/json' } })
-            .then(function(res){ return res.json().then(function(json){ return res.ok && json.success; }); })
+        var controller=window.AbortController ? new AbortController() : null;
+        var timedOut=false;
+        var timer=setTimeout(function(){
+            timedOut=true;
+            if (controller) controller.abort();
+        }, FORM_TIMEOUT_MS);
+
+        fetch(FORM_ENDPOINT, { method:'POST', body:data, headers:{ Accept:'application/json' }, signal:controller ? controller.signal : undefined })
+            .then(function(res){ return res.json().then(function(json){ return res.ok && json.success === true; }); })
             .catch(function(){ return false; })
             .then(function(sent){
+                clearTimeout(timer);
+                delete form.dataset.sending;
+                form.removeAttribute('aria-busy');
                 button.disabled=false;
                 button.innerHTML=buttonText;
-                if (!sent) { showFormError(); return; }
+                if (!sent || timedOut) { showFormError(timedOut); return; }
                 form.reset();
                 showToast(true, 'Enquiry sent', 'Thank you. We’ve received your <strong>'+title.toLowerCase()+'</strong>.', 'Our team will be in touch shortly.');
             });
