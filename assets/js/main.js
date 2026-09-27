@@ -104,22 +104,6 @@
         { id:11, name:'Safawi Dates (500G)',                category:'Dates',   packing:'12 per carton', popular:true,
           img:'https://images.unsplash.com/photo-1505252585461-04db1eb84625?auto=format&fit=crop&w=600&q=80' },
         { id:12, name:'Sukari Soft Dates (500G)',           category:'Dates',   packing:'12 per carton', popular:false,
-          img:'https://images.unsplash.com/photo-1505252585461-04db1eb84625?auto=format&fit=crop&w=600&q=80' },
-        { id:13, name:'Sukari Soft Dates (500G)',           category:'Dates',   packing:'12 per carton', popular:false,
-          img:'https://images.unsplash.com/photo-1505252585461-04db1eb84625?auto=format&fit=crop&w=600&q=80' },
-        { id:14, name:'Sukari Soft Dates (500G)',           category:'Dates',   packing:'12 per carton', popular:false,
-          img:'https://images.unsplash.com/photo-1505252585461-04db1eb84625?auto=format&fit=crop&w=600&q=80' },
-        { id:15, name:'Sukari Soft Dates (500G)',           category:'Dates',   packing:'12 per carton', popular:false,
-          img:'https://images.unsplash.com/photo-1505252585461-04db1eb84625?auto=format&fit=crop&w=600&q=80' },
-        { id:16, name:'Sukari Soft Dates (500G)',           category:'Dates',   packing:'12 per carton', popular:false,
-          img:'https://images.unsplash.com/photo-1505252585461-04db1eb84625?auto=format&fit=crop&w=600&q=80' },
-        { id:17, name:'Sukari Soft Dates (500G)',           category:'Dates',   packing:'12 per carton', popular:false,
-          img:'https://images.unsplash.com/photo-1505252585461-04db1eb84625?auto=format&fit=crop&w=600&q=80' },
-        { id:18, name:'Sukari Soft Dates (500G)',           category:'Dates',   packing:'12 per carton', popular:false,
-          img:'https://images.unsplash.com/photo-1505252585461-04db1eb84625?auto=format&fit=crop&w=600&q=80' },
-        { id:19, name:'Sukari Soft Dates (500G)',           category:'Dates',   packing:'12 per carton', popular:false,
-          img:'https://images.unsplash.com/photo-1505252585461-04db1eb84625?auto=format&fit=crop&w=600&q=80' },
-        { id:20, name:'Sukari Soft Dates (500G)',           category:'Dates',   packing:'12 per carton', popular:false,
           img:'https://images.unsplash.com/photo-1505252585461-04db1eb84625?auto=format&fit=crop&w=600&q=80' }
     ];
 

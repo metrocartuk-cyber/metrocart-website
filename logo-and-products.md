@@ -24,12 +24,4 @@ Use this file to instruct me. Add, edit, or remove logo and product rows below. 
 | Faani Frz. Green Peas (400G) | frozen | https://images.unsplash.com/photo-1505252585461-04db1eb84625?auto=format&fit=crop&w=600&q=80 | 18 per carton | false |
 | Safawi Dates (500G) | dates | https://images.unsplash.com/photo-1505252585461-04db1eb84625?auto=format&fit=crop&w=600&q=80 | 12 per carton | true |
 | Sukari Soft Dates (500G) | dates | https://images.unsplash.com/photo-1505252585461-04db1eb84625?auto=format&fit=crop&w=600&q=80 | 12 per carton | false |
-| Sukari Soft Dates (500G) | dates | https://images.unsplash.com/photo-1505252585461-04db1eb84625?auto=format&fit=crop&w=600&q=80 | 12 per carton | false |
-| Sukari Soft Dates (500G) | dates | https://images.unsplash.com/photo-1505252585461-04db1eb84625?auto=format&fit=crop&w=600&q=80 | 12 per carton | false |
-| Sukari Soft Dates (500G) | dates | https://images.unsplash.com/photo-1505252585461-04db1eb84625?auto=format&fit=crop&w=600&q=80 | 12 per carton | false |
-| Sukari Soft Dates (500G) | dates | https://images.unsplash.com/photo-1505252585461-04db1eb84625?auto=format&fit=crop&w=600&q=80 | 12 per carton | false |
-| Sukari Soft Dates (500G) | dates | https://images.unsplash.com/photo-1505252585461-04db1eb84625?auto=format&fit=crop&w=600&q=80 | 12 per carton | false |
-| Sukari Soft Dates (500G) | dates | https://images.unsplash.com/photo-1505252585461-04db1eb84625?auto=format&fit=crop&w=600&q=80 | 12 per carton | false |
-| Sukari Soft Dates (500G) | dates | https://images.unsplash.com/photo-1505252585461-04db1eb84625?auto=format&fit=crop&w=600&q=80 | 12 per carton | false |
-| Sukari Soft Dates (500G) | dates | https://images.unsplash.com/photo-1505252585461-04db1eb84625?auto=format&fit=crop&w=600&q=80 | 12 per carton | false |
 
