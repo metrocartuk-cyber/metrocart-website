@@ -18,14 +18,17 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/style.css">
     <script>
+        // Web3Forms access key (https://web3forms.com). Enquiries are emailed to the address it was created with.
+        var mcFormKey = 'YOUR_WEB3FORMS_ACCESS_KEY';
         try {
             window.mcData = {
                 startPage: window.localStorage.getItem('mc_page') || 'portal',
                 phone: '07539 995333',
-                whatsapp: '447539995333'
+                whatsapp: '447539995333',
+                formKey: mcFormKey
             };
         } catch (error) {
-            window.mcData = { startPage: 'portal', phone: '07539 995333', whatsapp: '447539995333' };
+            window.mcData = { startPage: 'portal', phone: '07539 995333', whatsapp: '447539995333', formKey: mcFormKey };
         }
     </script>
 </head>
@@ -426,21 +429,22 @@
                 <h3 class="inquiry-h3">Corporate Trade Inquiry Desk</h3>
                 <p class="inquiry-sub">Contact with centralized operations for custom container configuration volume requirements or to request a full catalogue file structure.</p>
             </div>
-            <form onsubmit="mcFormSubmit(event, 'Food Portfolio Connection Request')" class="form-space">
+            <form onsubmit="mcFormSubmit(event, 'Food trade enquiry')" class="form-space">
+                <input type="checkbox" name="botcheck" class="form-honeypot" tabindex="-1" autocomplete="off" aria-hidden="true">
                 <div class="form-grid-2">
                     <div class="form-group">
-                        <label class="form-label">Contact Name</label>
-                        <input type="text" required class="form-input" placeholder="Your full name">
+                        <label class="form-label" for="food-name">Contact Name</label>
+                        <input type="text" id="food-name" name="name" autocomplete="name" required class="form-input" placeholder="Your full name">
                     </div>
                     <div class="form-group">
-                        <label class="form-label">Business Name</label>
-                        <input type="text" required class="form-input" placeholder="Company name">
+                        <label class="form-label" for="food-company">Business Name</label>
+                        <input type="text" id="food-company" name="company" autocomplete="organization" required class="form-input" placeholder="Company name">
                     </div>
                 </div>
                 <div class="form-grid-2">
                     <div class="form-group">
-                        <label class="form-label">Business Role</label>
-                        <select required class="form-select">
+                        <label class="form-label" for="food-role">Business Role</label>
+                        <select id="food-role" name="role" required class="form-select">
                             <option value="" disabled selected>Select Your Corporate Role</option>
                             <option>Mainstream Retail Buyer</option>
                             <option>Wholesale Distributor Agent</option>
@@ -449,8 +453,8 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label class="form-label">Primary Product Interest</label>
-                        <select required class="form-select">
+                        <label class="form-label" for="food-interest">Primary Product Interest</label>
+                        <select id="food-interest" name="product_interest" required class="form-select">
                             <option value="" disabled selected>Select Sourcing Option</option>
                             <option>Frozen Vegetables &amp; Seafood Profiles</option>
                             <option>Premium Imported Date Assortments</option>
@@ -460,12 +464,12 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="form-label">Professional Email Address</label>
-                    <input type="email" required class="form-input" placeholder="your@business.com">
+                    <label class="form-label" for="food-email">Professional Email Address</label>
+                    <input type="email" id="food-email" name="email" autocomplete="email" required class="form-input" placeholder="your@business.com">
                 </div>
                 <div class="form-group">
-                    <label class="form-label">Volume Requirements Details</label>
-                    <textarea rows="4" required class="form-textarea" placeholder="Outline estimated recurring pallet configurations, delivery route locations, or required shipping frequency metrics..."></textarea>
+                    <label class="form-label" for="food-message">Volume Requirements Details</label>
+                    <textarea id="food-message" name="message" rows="4" required class="form-textarea" placeholder="Outline estimated recurring pallet configurations, delivery route locations, or required shipping frequency metrics..."></textarea>
                 </div>
                 <button type="submit" class="form-submit">Submit Sourcing Query &rarr;</button>
             </form>
@@ -579,21 +583,22 @@
                 <h3 class="inquiry-h3">Strategy Consulting Board</h3>
                 <p class="inquiry-sub">Define target operational targets securely to initiate an analytical assessment.</p>
             </div>
-            <form onsubmit="mcFormSubmit(event, 'Strategy Consulting Board Inquiry')" class="form-space">
+            <form onsubmit="mcFormSubmit(event, 'Consultancy enquiry')" class="form-space">
+                <input type="checkbox" name="botcheck" class="form-honeypot" tabindex="-1" autocomplete="off" aria-hidden="true">
                 <div class="form-grid-2">
                     <div class="form-group">
-                        <label class="form-label">Primary Contact Name</label>
-                        <input type="text" required class="form-input" placeholder="Your full name">
+                        <label class="form-label" for="cons-name">Primary Contact Name</label>
+                        <input type="text" id="cons-name" name="name" autocomplete="name" required class="form-input" placeholder="Your full name">
                     </div>
                     <div class="form-group">
-                        <label class="form-label">Organization Entity</label>
-                        <input type="text" required class="form-input" placeholder="Company name">
+                        <label class="form-label" for="cons-company">Organization Entity</label>
+                        <input type="text" id="cons-company" name="company" autocomplete="organization" required class="form-input" placeholder="Company name">
                     </div>
                 </div>
                 <div class="form-grid-2">
                     <div class="form-group">
-                        <label class="form-label">Consultancy Need Selection</label>
-                        <select required class="form-select">
+                        <label class="form-label" for="cons-need">Consultancy Need Selection</label>
+                        <select id="cons-need" name="consultancy_need" required class="form-select">
                             <option value="" disabled selected>Select Sourcing Option</option>
                             <option>UK Market Expansion &amp; Launch Strategy</option>
                             <option>Supply Chain &amp; Operations Optimization</option>
@@ -602,8 +607,8 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label class="form-label">Current Enterprise Phase</label>
-                        <select required class="form-select">
+                        <label class="form-label" for="cons-phase">Current Enterprise Phase</label>
+                        <select id="cons-phase" name="business_phase" required class="form-select">
                             <option value="" disabled selected>Select Active Operational Layer</option>
                             <option>Concept Evaluation &amp; Feasibility Study</option>
                             <option>Active Growth Model Deployment Phase</option>
@@ -612,12 +617,12 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="form-label">Official Enterprise Email Address</label>
-                    <input type="email" required class="form-input" placeholder="your@company.com">
+                    <label class="form-label" for="cons-email">Official Enterprise Email Address</label>
+                    <input type="email" id="cons-email" name="email" autocomplete="email" required class="form-input" placeholder="your@company.com">
                 </div>
                 <div class="form-group">
-                    <label class="form-label">Business Challenge Metric Description</label>
-                    <textarea rows="4" required class="form-textarea" placeholder="Outline target launch timelines, supply bottlenecks, system parameters, or scale metrics requiring executive consultation audit..."></textarea>
+                    <label class="form-label" for="cons-message">Business Challenge Metric Description</label>
+                    <textarea id="cons-message" name="message" rows="4" required class="form-textarea" placeholder="Outline target launch timelines, supply bottlenecks, system parameters, or scale metrics requiring executive consultation audit..."></textarea>
                 </div>
                 <button type="submit" class="form-submit">Submit Strategic Consultation Query &rarr;</button>
             </form>
@@ -699,27 +704,28 @@
         <div id="legalInquiry" class="inquiry-wrap">
             <div class="inquiry-head">
                 <h3 class="inquiry-h3">Regulatory Intake Desk</h3>
-                <p class="inquiry-sub">Submit operational goals under secure encryption protocols to start a statutory audit.</p>
+                <p class="inquiry-sub">Tell us what your business needs and our team will be in touch to discuss next steps.</p>
             </div>
-            <form onsubmit="mcFormSubmit(event, 'Regulatory Intake Desk File')" class="form-space">
+            <form onsubmit="mcFormSubmit(event, 'Legal services enquiry')" class="form-space">
+                <input type="checkbox" name="botcheck" class="form-honeypot" tabindex="-1" autocomplete="off" aria-hidden="true">
                 <div class="form-grid-2">
                     <div class="form-group">
-                        <label class="form-label">Contact Name</label>
-                        <input type="text" required class="form-input" placeholder="Your full name">
+                        <label class="form-label" for="legal-name">Contact Name</label>
+                        <input type="text" id="legal-name" name="name" autocomplete="name" required class="form-input" placeholder="Your full name">
                     </div>
                     <div class="form-group">
-                        <label class="form-label">Company Name Entity</label>
-                        <input type="text" required class="form-input" placeholder="Company name">
+                        <label class="form-label" for="legal-company">Company Name Entity</label>
+                        <input type="text" id="legal-company" name="company" autocomplete="organization" required class="form-input" placeholder="Company name">
                     </div>
                 </div>
                 <div class="form-grid-2">
                     <div class="form-group">
-                        <label class="form-label">Official Business Email</label>
-                        <input type="email" required class="form-input" placeholder="your@company.com">
+                        <label class="form-label" for="legal-email">Official Business Email</label>
+                        <input type="email" id="legal-email" name="email" autocomplete="email" required class="form-input" placeholder="your@company.com">
                     </div>
                     <div class="form-group">
-                        <label class="form-label">Target Service Area</label>
-                        <select required class="form-select">
+                        <label class="form-label" for="legal-area">Target Service Area</label>
+                        <select id="legal-area" name="service_area" required class="form-select">
                             <option value="" disabled selected>Select Regulatory Discipline</option>
                             <option>Corporate Entity Setup &amp; Registration</option>
                             <option>Commercial Contract Engineering &amp; MSAs</option>
@@ -729,10 +735,10 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="form-label">Comprehensive Description of Legal Needs</label>
-                    <textarea rows="4" required class="form-textarea" placeholder="Outline required governance structures, trade validation files, agreement metrics, or current compliance blocks..."></textarea>
+                    <label class="form-label" for="legal-message">Comprehensive Description of Legal Needs</label>
+                    <textarea id="legal-message" name="message" rows="4" required class="form-textarea" placeholder="Outline required governance structures, trade validation files, agreement metrics, or current compliance blocks..."></textarea>
                 </div>
-                <button type="submit" class="form-submit">Submit Encrypted Case File &rarr;</button>
+                <button type="submit" class="form-submit">Submit Legal Enquiry &rarr;</button>
             </form>
         </div>
     </section>
@@ -762,7 +768,7 @@
             <p class="footer-about-p">Specialist ethnic grocery distribution, responsive trade support, and practical business services for organisations across the United Kingdom.</p>
             <div class="footer-contact-links">
                 <a href="tel:07539995333">07539 995333</a>
-                <a href="mailto:operations@metrocart.co.uk">operations@metrocart.co.uk</a>
+                <a href="mailto:fazil.abbas@metrocart.co.uk">fazil.abbas@metrocart.co.uk</a>
             </div>
         </div>
 

@@ -464,22 +464,60 @@
     // ════════════════════════════════════════════════════════
     //  FORM TOASTS
     // ════════════════════════════════════════════════════════
-    window.mcFormSubmit = function(e, title) {
-        e.preventDefault();
+    var FORM_ENDPOINT = 'https://api.web3forms.com/submit';
+
+    function showToast(ok, heading, body, footer) {
         var container=document.getElementById('toast-container');
         var toast=document.createElement('div');
-        toast.className='mc-toast';
+        toast.className='mc-toast'+(ok?'':' mc-toast-error');
+        toast.setAttribute('role', ok?'status':'alert');
         toast.innerHTML=
-            '<div class="mc-toast-head"><span>Transmission Successful</span>'
-            +'<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="#059669" width="16" height="16"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></div>'
-            +'<div class="mc-toast-body">Data securely logged for: <strong>'+title+'</strong>.</div>'
-            +'<div class="mc-toast-pulse">Vetting response within 24 Hours.</div>';
+            '<div class="mc-toast-head"><span>'+heading+'</span>'
+            +(ok?'<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="#059669" width="16" height="16"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>':'')
+            +'</div>'
+            +'<div class="mc-toast-body">'+body+'</div>'
+            +(footer?'<div class="mc-toast-pulse">'+footer+'</div>':'');
         container.appendChild(toast);
         gsap.fromTo(toast,{y:20,opacity:0},{y:0,opacity:1,duration:0.6,ease:'back.out(1.5)'});
-        e.target.reset();
         setTimeout(function(){
             gsap.to(toast,{y:-15,opacity:0,duration:0.45,ease:'power2.in',onComplete:function(){ toast.remove(); }});
-        }, 6000);
+        }, ok?6000:10000);
+    }
+
+    function showFormError() {
+        showToast(false, 'Enquiry not sent',
+            'Sorry, we couldn’t send your enquiry. Please call <a href="tel:07539995333">07539 995333</a> or message us on <a href="https://wa.me/'+mcData.whatsapp+'" target="_blank" rel="noopener noreferrer">WhatsApp</a>.');
+    }
+
+    window.mcFormSubmit = function(e, title) {
+        e.preventDefault();
+        var form=e.target;
+        var button=form.querySelector('[type="submit"]');
+
+        if (!mcData.formKey || mcData.formKey.indexOf('YOUR_')===0) {
+            showFormError();
+            return;
+        }
+
+        var data=new FormData(form);
+        data.append('access_key', mcData.formKey);
+        data.append('subject', 'Website: '+title+' from '+(data.get('company')||data.get('name')));
+        data.append('from_name', 'Metrocart website');
+
+        var buttonText=button.innerHTML;
+        button.disabled=true;
+        button.innerHTML='Sending…';
+
+        fetch(FORM_ENDPOINT, { method:'POST', body:data, headers:{ Accept:'application/json' } })
+            .then(function(res){ return res.json().then(function(json){ return res.ok && json.success; }); })
+            .catch(function(){ return false; })
+            .then(function(sent){
+                button.disabled=false;
+                button.innerHTML=buttonText;
+                if (!sent) { showFormError(); return; }
+                form.reset();
+                showToast(true, 'Enquiry sent', 'Thank you. We’ve received your <strong>'+title.toLowerCase()+'</strong>.', 'Our team will be in touch shortly.');
+            });
     };
 
     // ════════════════════════════════════════════════════════
