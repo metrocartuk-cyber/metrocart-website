@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" width="600" height="600">
+  <rect width="600" height="600" fill="#f3f0fb"/>
+  <g fill="none" stroke="#a78bfa" stroke-width="10" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="215" y="215" width="170" height="130" rx="16"/>
+    <circle cx="262" cy="258" r="14"/>
+    <path d="M225 330l55-50 40 35 25-20 40 35"/>
+  </g>
+  <text x="300" y="400" text-anchor="middle" font-family="Plus Jakarta Sans, Arial, sans-serif" font-size="26" font-weight="600" fill="#7c3aed">Image coming soon</text>
+</svg>

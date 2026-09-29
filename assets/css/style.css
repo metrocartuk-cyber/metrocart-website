@@ -968,6 +968,7 @@ input, textarea, select { font-family: var(--font-sans); }
     grid-template-columns: repeat(1, 1fr);
     gap: 32px;
     min-height: 500px;
+    align-content: start; /* keep rows at content height when a tab has only one row */
 }
 @media (min-width: 640px) { #products-grid { grid-template-columns: repeat(2, 1fr); } }
 @media (min-width: 768px) { #products-grid { grid-template-columns: repeat(3, 1fr); } }

@@ -80,31 +80,215 @@
     var activeCategory = 'All Products';
     var prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+    // Product images live in assets/img/products/<CATEGORY>/ (filenames listed in logo-and-products.md).
+    // A missing image falls back to PRODUCT_IMG_PLACEHOLDER.
+    // Generated from logo-and-products.md by .claude/tools/sync_products.py; edit that file, not this list.
+    // Product images live in assets/img/products/<CATEGORY>/; a missing image falls back to PRODUCT_IMG_PLACEHOLDER.
     var PRODUCTS = [
-        { id:1,  name:'Faani Frz. Grated Coconut (400G)',  category:'Frozen',  packing:'18 per carton', popular:true,
-          img:'https://images.unsplash.com/photo-1505252585461-04db1eb84625?auto=format&fit=crop&w=600&q=80' },
-        { id:2,  name:'Faani Frz. Grated Coconut (1KG)',   category:'Frozen',  packing:'12 per carton', popular:false,
-          img:'https://images.unsplash.com/photo-1505252585461-04db1eb84625?auto=format&fit=crop&w=600&q=80' },
-        { id:3,  name:'Ajwa Dates (300G)',                  category:'Dates',   packing:'24 per carton', popular:true,
-          img:'https://images.unsplash.com/photo-1505252585461-04db1eb84625?auto=format&fit=crop&w=600&q=80' },
-        { id:4,  name:'Mabroom Dates (300G)',               category:'Dates',   packing:'24 per carton', popular:false,
-          img:'https://images.unsplash.com/photo-1505252585461-04db1eb84625?auto=format&fit=crop&w=600&q=80' },
-        { id:5,  name:'Aahaa Bhakharwadi (200G)',           category:'Ambient', packing:'25 per carton', popular:false,
-          img:'https://images.unsplash.com/photo-1613292443284-8d10ef9383fe?auto=format&fit=crop&w=600&q=80' },
-        { id:6,  name:'Aahaa Bhujia Munchy Masti (200G)',   category:'Ambient', packing:'25 per carton', popular:false,
-          img:'https://images.unsplash.com/photo-1613292443284-8d10ef9383fe?auto=format&fit=crop&w=600&q=80' },
-        { id:7,  name:'Aahaa Roasted Moong Dal (200G)',     category:'Ambient', packing:'25 per carton', popular:false,
-          img:'https://images.unsplash.com/photo-1613292443284-8d10ef9383fe?auto=format&fit=crop&w=600&q=80' },
-        { id:8,  name:'Aahaa Special Mix Namkeen (200G)',   category:'Ambient', packing:'25 per carton', popular:false,
-          img:'https://images.unsplash.com/photo-1505252585461-04db1eb84625?auto=format&fit=crop&w=600&q=80' },
-        { id:9,  name:'Faani Frz. Mixed Vegetables (400G)', category:'Frozen',  packing:'18 per carton', popular:false,
-          img:'https://images.unsplash.com/photo-1505252585461-04db1eb84625?auto=format&fit=crop&w=600&q=80' },
-        { id:10, name:'Faani Frz. Green Peas (400G)',       category:'Frozen',  packing:'18 per carton', popular:false,
-          img:'https://images.unsplash.com/photo-1505252585461-04db1eb84625?auto=format&fit=crop&w=600&q=80' },
-        { id:11, name:'Safawi Dates (500G)',                category:'Dates',   packing:'12 per carton', popular:true,
-          img:'https://images.unsplash.com/photo-1505252585461-04db1eb84625?auto=format&fit=crop&w=600&q=80' },
-        { id:12, name:'Sukari Soft Dates (500G)',           category:'Dates',   packing:'12 per carton', popular:false,
-          img:'https://images.unsplash.com/photo-1505252585461-04db1eb84625?auto=format&fit=crop&w=600&q=80' }
+        { id:1,   name:'Faani Frz. Grated Coconut 400g',               category:'Frozen',  packing:'18 per carton', popular:true, photo:true,
+          img:'assets/img/products/FROZEN/faani-frz-grated-coconut-400g.jpg' },
+        { id:2,   name:'Faani Frz. Grated Coconut 1Kg',                category:'Frozen',  packing:'12 per carton', popular:true, photo:true,
+          img:'assets/img/products/FROZEN/faani-frz-grated-coconut-1kg.jpg' },
+        { id:3,   name:'Faani Frz tapioca slice 700g',                 category:'Frozen',  packing:'20 per carton', popular:false, photo:false,
+          img:'assets/img/products/FROZEN/faani-frz-tapioca-slice-700g.jpg' },
+        { id:4,   name:'Faani Tapioca Slice 2.5kg',                    category:'Frozen',  packing:'6 per carton', popular:false, photo:false,
+          img:'assets/img/products/FROZEN/faani-tapioca-slice-2-5kg.jpg' },
+        { id:5,   name:'Faani Frz tapioca whole 700g',                 category:'Frozen',  packing:'20 per carton', popular:false, photo:false,
+          img:'assets/img/products/FROZEN/faani-frz-tapioca-whole-700g.jpg' },
+        { id:6,   name:'Faani Froz Jackfruit Ripe 300g',               category:'Frozen',  packing:'12 per carton', popular:false, photo:false,
+          img:'assets/img/products/FROZEN/faani-froz-jackfruit-ripe-300g.jpg' },
+        { id:7,   name:'Faani Frozen Tender Mango 250g',               category:'Frozen',  packing:'24 per carton', popular:false, photo:false,
+          img:'assets/img/products/FROZEN/faani-frozen-tender-mango-250g.jpg' },
+        { id:8,   name:'Faani Frozen Tender mango 500g',               category:'Frozen',  packing:'24 per carton', popular:false, photo:false,
+          img:'assets/img/products/FROZEN/faani-frozen-tender-mango-500g.jpg' },
+        { id:9,   name:'Fni Frz JackfruitSeedSlice 250g',              category:'Frozen',  packing:'24 per carton', popular:false, photo:false,
+          img:'assets/img/products/FROZEN/fni-frz-jackfruitseedslice-250g.jpg' },
+        { id:10,  name:'Faani Chilli Parotta 350g',                    category:'Frozen',  packing:'24 per carton', popular:false, photo:false,
+          img:'assets/img/products/FROZEN/faani-chilli-parotta-350g.jpg' },
+        { id:11,  name:'Faani Malabar Restaurant Parotta 1.5Kg',       category:'Frozen',  packing:'4 per carton', popular:true, photo:false,
+          img:'assets/img/products/FROZEN/faani-malabar-restaurant-parotta-1-5kg.jpg' },
+        { id:12,  name:'Faani Aloo Parotta 350g',                      category:'Frozen',  packing:'24 per carton', popular:false, photo:false,
+          img:'assets/img/products/FROZEN/faani-aloo-parotta-350g.jpg' },
+        { id:13,  name:'Faani Puttu White 350g',                       category:'Frozen',  packing:'12 per carton', popular:false, photo:false,
+          img:'assets/img/products/FROZEN/faani-puttu-white-350g.jpg' },
+        { id:14,  name:'Faani Puttu Brown 350g',                       category:'Frozen',  packing:'12 per carton', popular:false, photo:false,
+          img:'assets/img/products/FROZEN/faani-puttu-brown-350g.jpg' },
+        { id:15,  name:'Faani Idiyappam White 350g',                   category:'Frozen',  packing:'12 per carton', popular:false, photo:false,
+          img:'assets/img/products/FROZEN/faani-idiyappam-white-350g.jpg' },
+        { id:16,  name:'Faani Idiyappam Brown 350g',                   category:'Frozen',  packing:'12 per carton', popular:false, photo:false,
+          img:'assets/img/products/FROZEN/faani-idiyappam-brown-350g.jpg' },
+        { id:17,  name:'Faani Vellayappam 350g',                       category:'Frozen',  packing:'12 per carton', popular:false, photo:false,
+          img:'assets/img/products/FROZEN/faani-vellayappam-350g.jpg' },
+        { id:18,  name:'Faani Masala Dosa 350g',                       category:'Frozen',  packing:'12 per carton', popular:false, photo:false,
+          img:'assets/img/products/FROZEN/faani-masala-dosa-350g.jpg' },
+        { id:19,  name:'Faani Idli Sambar 350g',                       category:'Frozen',  packing:'12 per carton', popular:false, photo:false,
+          img:'assets/img/products/FROZEN/faani-idli-sambar-350g.jpg' },
+        { id:20,  name:'Fni Vegetable Mini Samosa 1Kg (ready to fry)', category:'Frozen',  packing:'5 per carton', popular:false, photo:false,
+          img:'assets/img/products/FROZEN/fni-vegetable-mini-samosa-1kg-ready-to-fry.jpg' },
+        { id:21,  name:'Fni Vegetable Mini Samosa 350g (ready to fry)',category:'Frozen',  packing:'12 per carton', popular:false, photo:false,
+          img:'assets/img/products/FROZEN/fni-vegetable-mini-samosa-350g-ready-to-fry.jpg' },
+        { id:22,  name:'Fni Vegetable Spring Roll 1Kg (ready to fry)', category:'Frozen',  packing:'5 per carton', popular:false, photo:false,
+          img:'assets/img/products/FROZEN/fni-vegetable-spring-roll-1kg-ready-to-fry.jpg' },
+        { id:23,  name:'Faani Sukian 350g',                            category:'Frozen',  packing:'12 per carton', popular:false, photo:false,
+          img:'assets/img/products/FROZEN/faani-sukian-350g.jpg' },
+        { id:24,  name:'Faani Vattayappam 350g',                       category:'Frozen',  packing:'12 per carton', popular:false, photo:false,
+          img:'assets/img/products/FROZEN/faani-vattayappam-350g.jpg' },
+        { id:25,  name:'Faani Banana Roast 350g',                      category:'Frozen',  packing:'12 per carton', popular:false, photo:false,
+          img:'assets/img/products/FROZEN/faani-banana-roast-350g.jpg' },
+        { id:26,  name:'Faani Unniappam 350gm',                        category:'Frozen',  packing:'12 per carton', popular:false, photo:false,
+          img:'assets/img/products/FROZEN/faani-unniappam-350gm.jpg' },
+        { id:27,  name:'Faani Neyyappam 350gm',                        category:'Frozen',  packing:'12 per carton', popular:false, photo:false,
+          img:'assets/img/products/FROZEN/faani-neyyappam-350gm.jpg' },
+        { id:28,  name:'Faani Parippuvada 350gm',                      category:'Frozen',  packing:'12 per carton', popular:false, photo:false,
+          img:'assets/img/products/FROZEN/faani-parippuvada-350gm.jpg' },
+        { id:29,  name:'Faani Elayada 350gm',                          category:'Frozen',  packing:'12 per carton', popular:false, photo:false,
+          img:'assets/img/products/FROZEN/faani-elayada-350gm.jpg' },
+        { id:30,  name:'Faani Breaded Veg. Cutlet 350g',               category:'Frozen',  packing:'12 per carton', popular:false, photo:false,
+          img:'assets/img/products/FROZEN/faani-breaded-veg-cutlet-350g.jpg' },
+        { id:31,  name:'Faani Idiyappam White 1KG',                    category:'Frozen',  packing:'4 per carton', popular:false, photo:false,
+          img:'assets/img/products/FROZEN/faani-idiyappam-white-1kg.jpg' },
+        { id:32,  name:'Faani Paruppu vada 1Kg',                       category:'Frozen',  packing:'5 per carton', popular:false, photo:false,
+          img:'assets/img/products/FROZEN/faani-paruppu-vada-1kg.jpg' },
+        { id:33,  name:'Faani Banana Fry 1Kg',                         category:'Frozen',  packing:'5 per carton', popular:false, photo:false,
+          img:'assets/img/products/FROZEN/faani-banana-fry-1kg.jpg' },
+        { id:34,  name:'Faani Unnakai 1kg',                            category:'Frozen',  packing:'5 per carton', popular:false, photo:false,
+          img:'assets/img/products/FROZEN/faani-unnakai-1kg.jpg' },
+        { id:35,  name:'TrueFroot F.Blend Tender Coconut 1L',          category:'Frozen',  packing:'12 per carton', popular:false, photo:false,
+          img:'assets/img/products/FROZEN/truefroot-f-blend-tender-coconut-1l.jpg' },
+        { id:36,  name:'TrueFroot F.Blend Chikku 1L',                  category:'Frozen',  packing:'12 per carton', popular:false, photo:false,
+          img:'assets/img/products/FROZEN/truefroot-f-blend-chikku-1l.jpg' },
+        { id:37,  name:'TrueFroot F.Blend Mango 1L',                   category:'Frozen',  packing:'12 per carton', popular:false, photo:false,
+          img:'assets/img/products/FROZEN/truefroot-f-blend-mango-1l.jpg' },
+        { id:38,  name:'TrueFroot F.Blend PassionFrut 1L',             category:'Frozen',  packing:'12 per carton', popular:false, photo:false,
+          img:'assets/img/products/FROZEN/truefroot-f-blend-passionfrut-1l.jpg' },
+        { id:39,  name:'TrueFroot F.Blend Guava 1L',                   category:'Frozen',  packing:'12 per carton', popular:false, photo:false,
+          img:'assets/img/products/FROZEN/truefroot-f-blend-guava-1l.jpg' },
+        { id:40,  name:'TrueFroot F.Blend Shamam 1L',                  category:'Frozen',  packing:'12 per carton', popular:false, photo:false,
+          img:'assets/img/products/FROZEN/truefroot-f-blend-shamam-1l.jpg' },
+        { id:41,  name:'Ajwa Dates 300g',                              category:'Dates',   packing:'24 per carton', popular:true, photo:true,
+          img:'assets/img/products/DATES/ajwa-dates-300g.jpg' },
+        { id:42,  name:'Mabroom Dates 300g',                           category:'Dates',   packing:'24 per carton', popular:true, photo:true,
+          img:'assets/img/products/DATES/mabroom-dates-300g.jpg' },
+        { id:43,  name:'Medjool Dates 450g',                           category:'Dates',   packing:'10 per carton', popular:false, photo:false,
+          img:'assets/img/products/DATES/medjool-dates-450g.jpg' },
+        { id:44,  name:'Medjool Dates 900g',                           category:'Dates',   packing:'8 per carton', popular:false, photo:false,
+          img:'assets/img/products/DATES/medjool-dates-900g.jpg' },
+        { id:45,  name:'Suqei Dates 400g',                             category:'Dates',   packing:'10 per carton', popular:false, photo:false,
+          img:'assets/img/products/DATES/suqei-dates-400g.jpg' },
+        { id:46,  name:'Safawi Dates 450g',                            category:'Dates',   packing:'10 per carton', popular:false, photo:false,
+          img:'assets/img/products/DATES/safawi-dates-450g.jpg' },
+        { id:47,  name:'Aahaa Bhakharwadi 200g',                       category:'Ambient', packing:'25 per carton', popular:true, photo:true,
+          img:'assets/img/products/AMBIENT/aahaa-bhakharwadi-200g.jpg' },
+        { id:48,  name:'Aahaa Bhujia Munchy Masti 200g',               category:'Ambient', packing:'25 per carton', popular:true, photo:true,
+          img:'assets/img/products/AMBIENT/aahaa-bhujia-munchy-masti-200g.jpg' },
+        { id:49,  name:'Aahaa Bikaner Bujiya 200gm',                   category:'Ambient', packing:'25 per carton', popular:false, photo:false,
+          img:'assets/img/products/AMBIENT/aahaa-bikaner-bujiya-200gm.jpg' },
+        { id:50,  name:'Aahaa Farali Chiwda 200g',                     category:'Ambient', packing:'25 per carton', popular:false, photo:false,
+          img:'assets/img/products/AMBIENT/aahaa-farali-chiwda-200g.jpg' },
+        { id:51,  name:'Aahaa Masala Boondi 200g',                     category:'Ambient', packing:'25 per carton', popular:false, photo:false,
+          img:'assets/img/products/AMBIENT/aahaa-masala-boondi-200g.jpg' },
+        { id:52,  name:'Aahaa Salted Moong Dal 200g',                  category:'Ambient', packing:'25 per carton', popular:false, photo:false,
+          img:'assets/img/products/AMBIENT/aahaa-salted-moong-dal-200g.jpg' },
+        { id:53,  name:'Faani Andhra Mixture 200g',                    category:'Ambient', packing:'24 per carton', popular:false, photo:false,
+          img:'assets/img/products/AMBIENT/faani-andhra-mixture-200g.jpg' },
+        { id:54,  name:'Faani Banana Chips 200g',                      category:'Ambient', packing:'24 per carton', popular:true, photo:false,
+          img:'assets/img/products/AMBIENT/faani-banana-chips-200g.jpg' },
+        { id:55,  name:'Faani Banana Chips Pepper 200g',               category:'Ambient', packing:'24 per carton', popular:false, photo:false,
+          img:'assets/img/products/AMBIENT/faani-banana-chips-pepper-200g.jpg' },
+        { id:56,  name:'Faani Banana Chips Ripen.200g',                category:'Ambient', packing:'24 per carton', popular:false, photo:false,
+          img:'assets/img/products/AMBIENT/faani-banana-chips-ripen-200g.jpg' },
+        { id:57,  name:'Faani Banana Chips Spicy 200g',                category:'Ambient', packing:'24 per carton', popular:false, photo:false,
+          img:'assets/img/products/AMBIENT/faani-banana-chips-spicy-200g.jpg' },
+        { id:58,  name:'Faani BananaChips Fourcut 200g',               category:'Ambient', packing:'24 per carton', popular:false, photo:false,
+          img:'assets/img/products/AMBIENT/faani-bananachips-fourcut-200g.jpg' },
+        { id:59,  name:'Faani BananaChips Jaggery 200g',               category:'Ambient', packing:'24 per carton', popular:false, photo:false,
+          img:'assets/img/products/AMBIENT/faani-bananachips-jaggery-200g.jpg' },
+        { id:60,  name:'Faani Gingelly Oil 1L',                        category:'Ambient', packing:'12 per carton', popular:false, photo:false,
+          img:'assets/img/products/AMBIENT/faani-gingelly-oil-1l.jpg' },
+        { id:61,  name:'Faani Ginger Sarbath 500ml',                   category:'Ambient', packing:'20 per carton', popular:false, photo:false,
+          img:'assets/img/products/AMBIENT/faani-ginger-sarbath-500ml.jpg' },
+        { id:62,  name:'Faani Grape Sarbath 500ml',                    category:'Ambient', packing:'20 per carton', popular:false, photo:false,
+          img:'assets/img/products/AMBIENT/faani-grape-sarbath-500ml.jpg' },
+        { id:63,  name:'Faani Jackfruit Chips 200g',                   category:'Ambient', packing:'24 per carton', popular:false, photo:false,
+          img:'assets/img/products/AMBIENT/faani-jackfruit-chips-200g.jpg' },
+        { id:64,  name:'Faani Jaggery Cubes 1kg',                      category:'Ambient', packing:'10 per carton', popular:false, photo:false,
+          img:'assets/img/products/AMBIENT/faani-jaggery-cubes-1kg.jpg' },
+        { id:65,  name:'Faani Kerala Mixture 200g',                    category:'Ambient', packing:'24 per carton', popular:false, photo:false,
+          img:'assets/img/products/AMBIENT/faani-kerala-mixture-200g.jpg' },
+        { id:66,  name:'Faani Kerala Mixture Spicy200g',               category:'Ambient', packing:'24 per carton', popular:false, photo:false,
+          img:'assets/img/products/AMBIENT/faani-kerala-mixture-spicy200g.jpg' },
+        { id:67,  name:'Faani Kudampuli 200g',                         category:'Ambient', packing:'50 per carton', popular:false, photo:false,
+          img:'assets/img/products/AMBIENT/faani-kudampuli-200g.jpg' },
+        { id:68,  name:'Faani Madras Mixture 200g',                    category:'Ambient', packing:'24 per carton', popular:false, photo:false,
+          img:'assets/img/products/AMBIENT/faani-madras-mixture-200g.jpg' },
+        { id:69,  name:'Faani Masala Peanut 200g',                     category:'Ambient', packing:'24 per carton', popular:false, photo:false,
+          img:'assets/img/products/AMBIENT/faani-masala-peanut-200g.jpg' },
+        { id:70,  name:'Faani Murukku Long 200g',                      category:'Ambient', packing:'24 per carton', popular:false, photo:false,
+          img:'assets/img/products/AMBIENT/faani-murukku-long-200g.jpg' },
+        { id:71,  name:'Faani Murukku Round 200g',                     category:'Ambient', packing:'24 per carton', popular:false, photo:false,
+          img:'assets/img/products/AMBIENT/faani-murukku-round-200g.jpg' },
+        { id:72,  name:'Faani Nannari Sarbath 500ml',                  category:'Ambient', packing:'20 per carton', popular:false, photo:false,
+          img:'assets/img/products/AMBIENT/faani-nannari-sarbath-500ml.jpg' },
+        { id:73,  name:'Faani Nutmeg Sarbath 500ml',                   category:'Ambient', packing:'20 per carton', popular:false, photo:false,
+          img:'assets/img/products/AMBIENT/faani-nutmeg-sarbath-500ml.jpg' },
+        { id:74,  name:'Faani Palada Payasam Mix 200g',                category:'Ambient', packing:'50 per carton', popular:false, photo:false,
+          img:'assets/img/products/AMBIENT/faani-palada-payasam-mix-200g.jpg' },
+        { id:75,  name:'Faani Pasionfrut Sarbath 500ml',               category:'Ambient', packing:'20 per carton', popular:false, photo:false,
+          img:'assets/img/products/AMBIENT/faani-pasionfrut-sarbath-500ml.jpg' },
+        { id:76,  name:'Faani Rice Flakes-Aval 500gm',                 category:'Ambient', packing:'20 per carton', popular:false, photo:false,
+          img:'assets/img/products/AMBIENT/faani-rice-flakes-aval-500gm.jpg' },
+        { id:77,  name:'Faani Roasted Vermicelli 180g',                category:'Ambient', packing:'20 per carton', popular:false, photo:false,
+          img:'assets/img/products/AMBIENT/faani-roasted-vermicelli-180g.jpg' },
+        { id:78,  name:'Faani Semiya Payasam Mix 200g',                category:'Ambient', packing:'50 per carton', popular:false, photo:false,
+          img:'assets/img/products/AMBIENT/faani-semiya-payasam-mix-200g.jpg' },
+        { id:79,  name:'Faani Sweet Mixture 200g',                     category:'Ambient', packing:'24 per carton', popular:false, photo:false,
+          img:'assets/img/products/AMBIENT/faani-sweet-mixture-200g.jpg' },
+        { id:80,  name:'Faani Tamarind Seedless 200g',                 category:'Ambient', packing:'50 per carton', popular:false, photo:false,
+          img:'assets/img/products/AMBIENT/faani-tamarind-seedless-200g.jpg' },
+        { id:81,  name:'Faani Tapioca Chips 100g',                     category:'Ambient', packing:'24 per carton', popular:false, photo:false,
+          img:'assets/img/products/AMBIENT/faani-tapioca-chips-100g.jpg' },
+        { id:82,  name:'Faani Tapioca Chips Spicy 100g',               category:'Ambient', packing:'24 per carton', popular:false, photo:false,
+          img:'assets/img/products/AMBIENT/faani-tapioca-chips-spicy-100g.jpg' },
+        { id:83,  name:'Faani Tapioca Sticks 200g',                    category:'Ambient', packing:'24 per carton', popular:false, photo:false,
+          img:'assets/img/products/AMBIENT/faani-tapioca-sticks-200g.jpg' },
+        { id:84,  name:'Faani Tapioca Sticks Spicy200g',               category:'Ambient', packing:'24 per carton', popular:false, photo:false,
+          img:'assets/img/products/AMBIENT/faani-tapioca-sticks-spicy200g.jpg' },
+        { id:85,  name:'Faash Coconut Oil 1L',                         category:'Ambient', packing:'12 per carton', popular:false, photo:false,
+          img:'assets/img/products/AMBIENT/faash-coconut-oil-1l.jpg' },
+        { id:86,  name:'Faash Coconut Oil 2L',                         category:'Ambient', packing:'8 per carton', popular:false, photo:false,
+          img:'assets/img/products/AMBIENT/faash-coconut-oil-2l.jpg' },
+        { id:87,  name:'Fani Rice Palada Paysm Mix200g',               category:'Ambient', packing:'50 per carton', popular:false, photo:false,
+          img:'assets/img/products/AMBIENT/fani-rice-palada-paysm-mix200g.jpg' },
+        { id:88,  name:'Fira Dosa Powder 1kg',                         category:'Ambient', packing:'10 per carton', popular:false, photo:false,
+          img:'assets/img/products/AMBIENT/fira-dosa-powder-1kg.jpg' },
+        { id:89,  name:'Fira Goosbry BE.Chili Syrp500ml',              category:'Ambient', packing:'12 per carton', popular:false, photo:false,
+          img:'assets/img/products/AMBIENT/fira-goosbry-be-chili-syrp500ml.jpg' },
+        { id:90,  name:'Fira Idiyapam Powder White 1kg',               category:'Ambient', packing:'10 per carton', popular:false, photo:false,
+          img:'assets/img/products/AMBIENT/fira-idiyapam-powder-white-1kg.jpg' },
+        { id:91,  name:'Fira Idly Powder 1kg',                         category:'Ambient', packing:'10 per carton', popular:false, photo:false,
+          img:'assets/img/products/AMBIENT/fira-idly-powder-1kg.jpg' },
+        { id:92,  name:'Fira Knthri.Mango Chamanti400g',               category:'Ambient', packing:'12 per carton', popular:false, photo:false,
+          img:'assets/img/products/AMBIENT/fira-knthri-mango-chamanti400g.jpg' },
+        { id:93,  name:'Fira Paalappam Powder 1kg',                    category:'Ambient', packing:'10 per carton', popular:false, photo:false,
+          img:'assets/img/products/AMBIENT/fira-paalappam-powder-1kg.jpg' },
+        { id:94,  name:'Fira Rice Powder 1kg',                         category:'Ambient', packing:'10 per carton', popular:false, photo:false,
+          img:'assets/img/products/AMBIENT/fira-rice-powder-1kg.jpg' },
+        { id:95,  name:'Fira Steamed RicePuttu Powder 1Kg',            category:'Ambient', packing:'10 per carton', popular:false, photo:false,
+          img:'assets/img/products/AMBIENT/fira-steamed-riceputtu-powder-1kg.jpg' },
+        { id:96,  name:'Fira Synthetic Vinegar 500ml',                 category:'Ambient', packing:'24 per carton', popular:false, photo:false,
+          img:'assets/img/products/AMBIENT/fira-synthetic-vinegar-500ml.jpg' },
+        { id:97,  name:'Tholur Garlic Pickle 300g',                    category:'Ambient', packing:'12 per carton', popular:false, photo:false,
+          img:'assets/img/products/AMBIENT/tholur-garlic-pickle-300g.jpg' },
+        { id:98,  name:'Tholur Ginger Garlic Paste 300g',              category:'Ambient', packing:'12 per carton', popular:false, photo:false,
+          img:'assets/img/products/AMBIENT/tholur-ginger-garlic-paste-300g.jpg' },
+        { id:99,  name:'Tholur Lime Pickle 300g',                      category:'Ambient', packing:'12 per carton', popular:false, photo:false,
+          img:'assets/img/products/AMBIENT/tholur-lime-pickle-300g.jpg' },
+        { id:100, name:'Tholur Mango Pickle 300g',                     category:'Ambient', packing:'12 per carton', popular:false, photo:false,
+          img:'assets/img/products/AMBIENT/tholur-mango-pickle-300g.jpg' },
+        { id:101, name:'Tholur Mix Veg Pickle 300g',                   category:'Ambient', packing:'12 per carton', popular:false, photo:false,
+          img:'assets/img/products/AMBIENT/tholur-mix-veg-pickle-300g.jpg' },
+        { id:102, name:'Tholur Tender Mango Pickle 300g',              category:'Ambient', packing:'12 per carton', popular:false, photo:false,
+          img:'assets/img/products/AMBIENT/tholur-tender-mango-pickle-300g.jpg' }
     ];
 
     // ── Cookie helpers ────────────────────────────────────────
@@ -331,12 +515,16 @@
     // ════════════════════════════════════════════════════════
     //  PRODUCTS GRID
     // ════════════════════════════════════════════════════════
+    var PRODUCT_IMG_PLACEHOLDER = 'assets/img/products/placeholder.svg';
+    var FEATURED_LIMIT = 6; // homepage "Featured products"; keep in sync with MAX_FEATURED in sync_products.py
+    var IMG_FALLBACK = ' onerror="this.onerror=null;this.src=\''+PRODUCT_IMG_PLACEHOLDER+'\'"';
+
     function buildProductsGrid(items) {
         var grid=document.getElementById('products-grid');
         if (!grid) return;
         grid.innerHTML='';
         if (!items||!items.length){
-            grid.innerHTML='<div class="products-empty">No products found.</div>';
+            grid.innerHTML='<div class="products-empty">More products coming soon. Contact our trade desk for current availability.</div>';
             return;
         }
         items.forEach(function(prod){
@@ -347,7 +535,7 @@
             card.onclick=function(){ navigateTo('food','foodInquiry'); };
             card.innerHTML=
                 '<div class="product-img-wrap">'
-                +'<img src="'+prod.img+'" alt="'+prod.name+'" loading="lazy" decoding="async" onerror="this.src=\'https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=600&q=80\'">'
+                +'<img src="'+prod.img+'" alt="'+prod.name+'" loading="lazy" decoding="async"'+IMG_FALLBACK+'>'
                 +'<span class="product-badge-cat">'+prod.category+'</span>'
                 +(prod.popular?'<span class="product-badge-pop">Popular</span>':'')
                 +'</div>'
@@ -394,7 +582,11 @@
         var grid=document.getElementById('featured-products-grid');
         if (!grid) return;
 
-        var featured=PRODUCTS.filter(function(product){ return product.popular; }).slice(0,4);
+        // Starred products with a photo first (keeping list order), filling two rows of three.
+        var popular=PRODUCTS.filter(function(product){ return product.popular; });
+        var featured=popular.filter(function(p){ return p.photo; })
+            .concat(popular.filter(function(p){ return !p.photo; }))
+            .slice(0, FEATURED_LIMIT);
         grid.innerHTML='';
         featured.forEach(function(product){
             var card=document.createElement('button');
@@ -404,7 +596,7 @@
             card.onclick=function(){ browseCategory(product.category); };
             card.innerHTML=
                 '<span class="featured-product-img">'
-                +'<img src="'+product.img+'" alt="'+product.name+'" loading="lazy" decoding="async">'
+                +'<img src="'+product.img+'" alt="'+product.name+'" loading="lazy" decoding="async"'+IMG_FALLBACK+'>'
                 +'<span class="featured-product-tag">Popular</span>'
                 +'</span>'
                 +'<span class="featured-product-copy">'
